@@ -9,12 +9,13 @@ import SwiftUI
 
 struct SpotifyCategoryCell: View {
     
-    var title: String = "Music"
+    var title: String = "All"
     var isSelected: Bool = false
     
     var body: some View {
         Text(title)
             .font(.callout)
+            .frame(minWidth: 35)
             .padding(.vertical, 8)
             .padding(.horizontal, 10)
             .foregroundStyle(isSelected ? .spotifyBlack : .spotifyWhite)
