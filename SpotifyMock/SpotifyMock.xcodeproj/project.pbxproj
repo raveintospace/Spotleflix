@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		34945B9D2C5E6BC3000CA571 /* SpotifyHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34945B9C2C5E6BC3000CA571 /* SpotifyHomeView.swift */; };
+		34945B9F2C5E76FB000CA571 /* SpotifyCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34945B9E2C5E76FB000CA571 /* SpotifyCategoryCell.swift */; };
 		34D916E22C5D36BB00A8662C /* SpotifyMockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D916E12C5D36BB00A8662C /* SpotifyMockApp.swift */; };
 		34D916E42C5D36BB00A8662C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D916E32C5D36BB00A8662C /* ContentView.swift */; };
 		34D916E62C5D36BC00A8662C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34D916E52C5D36BC00A8662C /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		34945B9C2C5E6BC3000CA571 /* SpotifyHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyHomeView.swift; sourceTree = "<group>"; };
+		34945B9E2C5E76FB000CA571 /* SpotifyCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyCategoryCell.swift; sourceTree = "<group>"; };
 		34D916DE2C5D36BB00A8662C /* SpotifyMock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpotifyMock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34D916E12C5D36BB00A8662C /* SpotifyMockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyMockApp.swift; sourceTree = "<group>"; };
 		34D916E32C5D36BB00A8662C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 		34945B9A2C5E6BAA000CA571 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				34945B9E2C5E76FB000CA571 /* SpotifyCategoryCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				34D916F42C5D37DD00A8662C /* ImageLoaderView.swift in Sources */,
+				34945B9F2C5E76FB000CA571 /* SpotifyCategoryCell.swift in Sources */,
 				34D916F82C5D3A1200A8662C /* DatabaseHelper.swift in Sources */,
 				34945B9D2C5E6BC3000CA571 /* SpotifyHomeView.swift in Sources */,
 				34D916E42C5D36BB00A8662C /* ContentView.swift in Sources */,
