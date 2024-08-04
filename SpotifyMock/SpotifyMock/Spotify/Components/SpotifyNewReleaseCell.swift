@@ -15,6 +15,10 @@ struct SpotifyNewReleaseCell: View {
     var title: String? = "Some Playlist"
     var subtitle: String? = "Single - title"
     
+    // Buttons' logic set on the view that calls this reusable component
+    var onAddToPlaylistPressed: (() -> Void)? = nil
+    var onPlayPressed: (() -> Void)? = nil
+    
     var body: some View {
         VStack(spacing: 16) {
             HStack(spacing: 8) {
@@ -30,7 +34,7 @@ struct SpotifyNewReleaseCell: View {
                     }
                     
                     if let subheadline {
-                        Text(subheadline)
+                        Text(subheadline.capitalized)
                             .foregroundStyle(.spotifyWhite)
                             .font(.title2)
                             .fontWeight(.medium)
@@ -38,6 +42,51 @@ struct SpotifyNewReleaseCell: View {
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+            
+            HStack {
+                ImageLoaderView(urlString: imageName)
+                    .frame(width: 140, height: 140)
+                
+                VStack(alignment: .leading, spacing: 32) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        if let title {
+                            Text(title)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(.spotifyWhite)
+                        }
+                        
+                        if let subtitle {
+                            Text(subtitle)
+                                .foregroundStyle(.spotifyLightGray)
+                        }
+                    }
+                    .font(.caption)
+                    
+                    HStack(spacing: 0) {
+                        Image(systemName: "plus.circle")
+                            .foregroundStyle(.spotifyLightGray)
+                            .font(.title3)
+                            .padding(4) // helps clickability
+                            .background(.black.opacity(0.001))
+                            .onTapGesture {
+                                onAddToPlaylistPressed?()
+                            }
+                            .offset(x: -4)
+                            .frame(maxWidth: .infinity, alignment: .leading) // similar effect as Spacer
+                        
+                        Image(systemName: "play.circle.fill")
+                            .foregroundStyle(.spotifyWhite)
+                            .font(.title)
+                    }
+                }
+                .padding(.trailing, 16)
+                .padding(.vertical) // added by me
+            }
+            .themeColors(isSelected: false)
+            .clipShape(.rect(cornerRadius: 8))
+            .onTapGesture {
+                onPlayPressed?()
+            }
         }
     }
 }
@@ -47,5 +96,6 @@ struct SpotifyNewReleaseCell: View {
         Color.black.ignoresSafeArea()
         
         SpotifyNewReleaseCell()
+            .padding()
     }
 }
