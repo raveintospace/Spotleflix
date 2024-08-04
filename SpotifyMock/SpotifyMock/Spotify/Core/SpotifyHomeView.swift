@@ -26,16 +26,10 @@ struct SpotifyHomeView: View {
                             
                             if let product = products.first {
                                 newRealease(product: product)
-                            }
-                            
+                            }   
                         }
                         .padding(.horizontal, 16)
                         
-                    
-                        ForEach(1...10, id: \.self) { count in
-                            /*@START_MENU_TOKEN@*/Text("Placeholder \(count)")/*@END_MENU_TOKEN@*/
-                                .foregroundStyle(.red)
-                        }
                     } header: {
                         header
                     }
