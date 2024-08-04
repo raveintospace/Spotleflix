@@ -26,7 +26,24 @@ struct SpotifyHomeView: View {
                             
                             if let product = products.first {
                                 newRealease(product: product)
-                            }   
+                            }
+                            
+                            VStack(spacing: 8) {
+                                Text("Category")
+                                    .font(.title)
+                                    .fontWeight(.semibold)
+                                    .foregroundStyle(.spotifyWhite)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                
+                                ScrollView(.horizontal) {
+                                    HStack {
+                                        ForEach(0..<20) { _ in
+                                            ImageTitleRowCell()
+                                        }
+                                    }
+                                }
+                                .scrollIndicators(.hidden)
+                            }
                         }
                         .padding(.horizontal, 16)
                         
