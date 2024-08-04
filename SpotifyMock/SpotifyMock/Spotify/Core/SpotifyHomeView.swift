@@ -54,6 +54,7 @@ struct SpotifyHomeView: View {
 }
 
 extension SpotifyHomeView {
+    
     private func getData() async {
         do {
             currentUser = try await DatabaseHelper().getUsers().first
@@ -61,7 +62,7 @@ extension SpotifyHomeView {
             
             // mock to populate productRows
             var rows: [ProductRow] = []
-            let allBrands = Set(products.map({ $0.brand }))  // set = no duplicates
+            let allBrands = Set(products.map({ $0.brand }))  // set = unique values
             for brand in allBrands {
                 // let products = self.products.filter({ $0.brand == brand })
                 rows.append(ProductRow(title: brand ?? "Apple", products: products))
@@ -114,6 +115,9 @@ extension SpotifyHomeView {
                     imageName: product.firstImage,
                     title: product.title
                 )
+                .asButton(.press) {
+                    
+                }
             }
         }
     }
@@ -153,6 +157,9 @@ extension SpotifyHomeView {
                                 title: product.title,
                                 imageSize: 120
                             )
+                            .asButton(.press) {
+                                
+                            }
                         }
                     }
                     .padding(.horizontal, 16)
