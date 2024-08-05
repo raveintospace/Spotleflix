@@ -84,6 +84,7 @@
 			children = (
 				34B7E20F2C5FDA1F008D253B /* ImageTitleRowCell.swift */,
 				3423BFFA2C6124BA007A366C /* PlaylistHeaderCell.swift */,
+				3423BFFC2C612943007A366C /* PlaylistDescriptionCell.swift */,
 				34945B9E2C5E76FB000CA571 /* SpotifyCategoryCell.swift */,
 				34945BA32C5E7F92000CA571 /* SpotifyRecentsCell.swift */,
 				34945BA82C5E8F14000CA571 /* SpotifyNewReleaseCell.swift */,
@@ -96,7 +97,6 @@
 			children = (
 				34945B9C2C5E6BC3000CA571 /* SpotifyHomeView.swift */,
 				3423BFF82C612484007A366C /* SpotifyPlaylistView.swift */,
-				3423BFFC2C612943007A366C /* PlaylistDescriptionCell.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";

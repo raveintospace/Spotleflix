@@ -23,6 +23,19 @@ struct SpotifyPlaylistView: View {
                         subtitle: product._brand,
                         imageName: product.thumbnail
                     )
+                    
+                    PlaylistDescriptionCell(
+                        descriptionText: product.description,
+                        userName: "Uri",
+                        subheadline: product.category,
+                        onAddToPlaylistPressed: nil,
+                        onDownloadPressed: nil,
+                        onSharedPressed: nil,
+                        onEllipsisPressed: nil,
+                        onShufflePressed: nil,
+                        onPlayPressed: nil
+                    )
+                    .padding(.horizontal, 16)
                 }
             }
             .scrollIndicators(.hidden)

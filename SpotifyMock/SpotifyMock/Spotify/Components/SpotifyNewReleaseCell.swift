@@ -67,11 +67,11 @@ struct SpotifyNewReleaseCell: View {
                             .foregroundStyle(.spotifyLightGray)
                             .font(.title3)
                             .padding(4) // helps clickability
-                            .background(.black.opacity(0.001))
+                            .background(.black.opacity(0.001))  // helps clickability
                             .onTapGesture {
                                 onAddToPlaylistPressed?()
                             }
-                            .offset(x: -4)
+                            .offset(x: -4)  // offset according to padding
                             .frame(maxWidth: .infinity, alignment: .leading) // similar effect as Spacer
                         
                         Image(systemName: "play.circle.fill")
