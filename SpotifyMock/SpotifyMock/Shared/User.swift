@@ -53,16 +53,16 @@ struct User: Codable, Identifiable {
     static var mock: User {
         User(
             id: 444,
-            firstName: "Nick",
-            lastName: "Sarno",
+            firstName: "Uri",
+            lastName: "Quaranta-Sis",
             age: 76,
             email: "hi@hi.com",
             phone: "",
             username: "",
             password: "",
             image: Constants.randomImage,
-            height: 180,
-            weight: 200
+            height: 164,
+            weight: 53
         )
     }
 }
