@@ -10,13 +10,18 @@ import SwiftfulUI
 
 struct PlaylistHeaderCell: View {
     
+    var height: CGFloat = 300
     var title: String = "Some playlist title goes here"
     var subtitle: String = "Subtitle goes here"
     var imageName: String = Constants.randomImage
     var shadowColor: Color = .spotifyBlack.opacity(0.8)
     
     var body: some View {
-        ImageLoaderView(urlString: imageName)
+        Rectangle()
+            .opacity(0)
+            .overlay(
+                ImageLoaderView(urlString: imageName)
+            )
             .overlay(
                 VStack(alignment: .leading, spacing: 8) {
                     Text(subtitle)
@@ -35,7 +40,8 @@ struct PlaylistHeaderCell: View {
                 // overlay alignment
                 , alignment: .bottomLeading
             )
-            .frame(height: 300)
+            .asStretchyHeader(startingHeight: height)
+        // ^ applied to rectangle instead of image for better performance
     }
 }
 
