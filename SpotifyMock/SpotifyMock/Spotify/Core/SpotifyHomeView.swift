@@ -62,10 +62,10 @@ extension SpotifyHomeView {
             
             // mock to populate productRows
             var rows: [ProductRow] = []
-            let allBrands = Set(products.map({ $0.brand }))  // set = unique values
+            let allBrands = Set(products.map({ $0._brand }))  // set = unique values
             for brand in allBrands {
                 // let products = self.products.filter({ $0.brand == brand })
-                rows.append(ProductRow(title: brand ?? "Apple", products: products))
+                rows.append(ProductRow(title: brand, products: products))
             }
             productRows = rows
             
