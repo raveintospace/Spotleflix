@@ -7,8 +7,11 @@
 
 import SwiftUI
 import SwiftfulUI
+import SwiftfulRouting
 
 struct SpotifyHomeView: View {
+    
+    @Environment(\.router) var router
     
     @State private var currentUser: User? = nil
     @State private var selectedCategory: Category? = nil
@@ -50,7 +53,9 @@ struct SpotifyHomeView: View {
 }
 
 #Preview {
-    SpotifyHomeView()
+    RouterView { _ in
+        SpotifyHomeView()
+    }
 }
 
 extension SpotifyHomeView {
@@ -64,6 +69,7 @@ extension SpotifyHomeView {
             var rows: [ProductRow] = []
             let allBrands = Set(products.map({ $0._brand }))  // set = unique values
             for brand in allBrands {
+                // commented to have more products, otherwise only products of brand
                 // let products = self.products.filter({ $0.brand == brand })
                 rows.append(ProductRow(title: brand, products: products))
             }
@@ -82,6 +88,7 @@ extension SpotifyHomeView {
                         .background(.spotifyWhite)
                         .clipShape(Circle())
                         .onTapGesture {
+                            router.dismissScreen()
                         }
                 }
             }
@@ -116,9 +123,17 @@ extension SpotifyHomeView {
                     title: product.title
                 )
                 .asButton(.press) {
-                    
+                    goToPlaylistView(product: product)
                 }
             }
+        }
+    }
+    
+    private func goToPlaylistView(product: Product) {
+        guard let currentUser else { return }
+        
+        router.showScreen(.push) { _ in
+            SpotifyPlaylistView(product: product, user: currentUser)
         }
     }
     
@@ -134,7 +149,7 @@ extension SpotifyHomeView {
                 
             },
             onPlayPressed: {
-                
+                goToPlaylistView(product: product)
             }
         )
     }
@@ -158,7 +173,7 @@ extension SpotifyHomeView {
                                 imageSize: 120
                             )
                             .asButton(.press) {
-                                
+                                goToPlaylistView(product: product)
                             }
                         }
                     }
