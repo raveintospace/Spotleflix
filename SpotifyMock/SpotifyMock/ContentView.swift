@@ -16,8 +16,8 @@ struct ContentView: View {
     var body: some View {
         List {
             Button("Open Spotify") {
-                router.showScreen(.fullScreenCover) { _ in
-                    SpotifyHomeView()
+                router.showScreen(.fullScreenCover) { router in
+                    SpotifyHomeView(viewModel: SpotifyHomeViewModel(router: router))
                 }
             }
         }

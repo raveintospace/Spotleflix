@@ -8,15 +8,35 @@
 import SwiftUI
 import SwiftfulUI
 import SwiftfulRouting
+import Observation
+
+// example of MVVM
+@Observable
+final class SpotifyHomeViewModel {
+    
+    let router: AnyRouter
+    
+    var currentUser: User? = nil
+    var selectedCategory: Category? = nil
+    var products: [Product] = []
+    var productRows: [ProductRow] = []
+    
+    init(router: AnyRouter) {
+        self.router = router
+    }
+    
+}
 
 struct SpotifyHomeView: View {
     
-    @Environment(\.router) var router
+    @State var viewModel: SpotifyHomeViewModel
     
-    @State private var currentUser: User? = nil
-    @State private var selectedCategory: Category? = nil
-    @State private var products: [Product] = []
-    @State private var productRows: [ProductRow] = []
+//    @Environment(\.router) var router
+//    
+//    @State private var currentUser: User? = nil
+//    @State private var selectedCategory: Category? = nil
+//    @State private var products: [Product] = []
+//    @State private var productRows: [ProductRow] = []
     
     var body: some View {
         ZStack {
@@ -53,8 +73,8 @@ struct SpotifyHomeView: View {
 }
 
 #Preview {
-    RouterView { _ in
-        SpotifyHomeView()
+    RouterView { router in
+        SpotifyHomeView(viewModel: SpotifyHomeViewModel(router: router))
     }
 }
 
