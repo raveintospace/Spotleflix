@@ -66,13 +66,16 @@ struct SpotifyPlaylistView: View {
                             imageSize: 50,
                             imageName: product.firstImage,
                             title: product.title,
-                            subtitle: product._brand) {
-                                
-                            } onEllipsisPressed: {
+                            subtitle: product._brand,
+                            onCellPressed: {
+                                goToPlaylistView(product: product)
+                            },
+                            onEllipsisPressed: {
                                 
                             }
+                        )
+                        .padding(.leading, 16)
                     }
-                    .padding(.leading, 16)
                 }
             }
             .scrollIndicators(.hidden)
@@ -88,7 +91,9 @@ struct SpotifyPlaylistView: View {
 }
 
 #Preview {
-    SpotifyPlaylistView()
+    RouterView { _ in
+        SpotifyPlaylistView()
+    }
 }
 
 extension SpotifyPlaylistView {
@@ -100,6 +105,12 @@ extension SpotifyPlaylistView {
             products = try await DatabaseHelper().getProducts()
         } catch  {
             
+        }
+    }
+    
+    private func goToPlaylistView(product: Product) {
+        router.showScreen(.push) { _ in
+            SpotifyPlaylistView(product: product, user: user)
         }
     }
     
