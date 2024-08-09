@@ -1,11 +1,12 @@
 //
 //  SpotifyPlaylistView.swift
 //  SpotifyMock
-//
+//  https://youtu.be/c92DfVGGi8M?si=AY62y6luNci2oYHR - min 19 (offset)
 //  Created by Uri on 5/8/24.
 //
 
 import SwiftUI
+import SwiftfulUI
 
 struct SpotifyPlaylistView: View {
     
@@ -14,7 +15,7 @@ struct SpotifyPlaylistView: View {
     
     @State private var products: [Product] = []
     @State private var showHeader: Bool = true
-    
+    @State private var offset: CGFloat = 0
     
     var body: some View {
         ZStack {
@@ -22,12 +23,27 @@ struct SpotifyPlaylistView: View {
             
             ScrollView(.vertical) {
                 LazyVStack(spacing: 12) {
+                    
+                    // GeometryReader in background to handle the vertical offset of PlaylistHeaderCell
+                    // Using it in background because it has the same frame than PlaylistHeaderCell without affecting the latter
+                    
                     PlaylistHeaderCell(
                         height: 250,
                         title: product.title,
                         subtitle: product._brand,
                         imageName: product.thumbnail
                     )
+                    .readingFrame { frame in
+                        showHeader = frame.maxY < 150 // maxY = bottom of cell
+                    }
+                    
+                    // background for offset
+//                    .background(
+//                        GeometryReader(content: { geometry in
+//                            Text("")
+//                                .frame(maxWidth: .infinity)
+//                        })
+//                    )
                     
                     PlaylistDescriptionCell(
                         descriptionText: product.description,
@@ -61,10 +77,10 @@ struct SpotifyPlaylistView: View {
             ZStack {
                 Text(product.title)
                     .font(.headline)
-                    .foregroundStyle(.spotifyWhite)
                     .padding(.vertical, 20)
                     .frame(maxWidth: .infinity)
-                    .background(.blue)
+                    .background(.spotifyBlack)
+                    .offset(y: showHeader ? 0 : -40)
                     .opacity(showHeader ? 1 : 0)
                 
                 Image(systemName: "chevron.left")
@@ -79,6 +95,7 @@ struct SpotifyPlaylistView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             .foregroundStyle(.spotifyWhite)
+            .animation(.smooth(duration: 0.2), value: showHeader)
             .frame(maxHeight: .infinity, alignment: .top)
         }
         .task {
