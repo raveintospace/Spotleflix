@@ -101,6 +101,8 @@ extension SpotifyPlaylistView {
     // another api call to mimic real app logic
     // we don't pass the products from home view, we make another api call
     private func getData() async {
+        guard products.isEmpty else { return }
+        
         do {
             products = try await DatabaseHelper().getProducts()
         } catch  {

@@ -61,6 +61,8 @@ struct SpotifyHomeView: View {
 extension SpotifyHomeView {
     
     private func getData() async {
+        guard products.isEmpty else { return }       
+        
         do {
             currentUser = try await DatabaseHelper().getUsers().first
             products = try await Array(DatabaseHelper().getProducts().prefix(8))
