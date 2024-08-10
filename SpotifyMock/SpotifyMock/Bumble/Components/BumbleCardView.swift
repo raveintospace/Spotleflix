@@ -1,7 +1,7 @@
 //
 //  BumbleCardView.swift
 //  SpotifyMock
-//
+//  https://youtu.be/VcidT15AeIQ?si=icXHN72Y1GdXtTZu - min 14
 //  Created by Uri on 10/8/24.
 //
 
@@ -82,4 +82,4 @@ extension BumbleCardView {
 
 // black.opacity(0.6) twice to extend the opacity
 // SwiftfulUI's .readingFrame reads the frame of device's screen
-// .frame(height: cardFrame.height) = image frame height = device height
+// .frame(height: cardFrame.height) -> image frame height = device height
