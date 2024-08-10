@@ -31,14 +31,19 @@ struct BumbleCardView: View {
                             Image(systemName: "graduationcap")
                             Text(user.education)
                         }
+                        
+                        BumbleHeartView()
+                            .onTapGesture {
+                                
+                            }
                     }
                     .padding(24)
                     .font(.callout)
                     .fontWeight(.medium)
                     .foregroundStyle(.bumbleWhite)
+                    
                 }
                 .frame(height: 600)
-                
             }
         }
         .scrollIndicators(.hidden)
