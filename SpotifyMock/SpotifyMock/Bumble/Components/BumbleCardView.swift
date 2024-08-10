@@ -6,20 +6,26 @@
 //
 
 import SwiftUI
+import SwiftfulUI
 
 struct BumbleCardView: View {
     
     var user: User = .mock
     
+    @State private var cardFrame: CGRect = .zero
+    
     var body: some View {
         ScrollView(.vertical) {
             LazyVStack(spacing: 0) {
                 headerCell
-                    .frame(height: 700)
+                    .frame(height: cardFrame.height)
             }
         }
         .scrollIndicators(.hidden)
         .clipShape(.rect(cornerRadius: 32))
+        .readingFrame { frame in
+            cardFrame = frame
+        }
     }
 }
 
@@ -75,3 +81,5 @@ extension BumbleCardView {
 }
 
 // black.opacity(0.6) twice to extend the opacity
+// SwiftfulUI's .readingFrame reads the frame of device's screen
+// .frame(height: cardFrame.height) = image frame height = device height
