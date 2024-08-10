@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		34146EEB2C67B8040049F7C3 /* BumbleHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34146EEA2C67B8040049F7C3 /* BumbleHomeView.swift */; };
 		34146EED2C67BBC80049F7C3 /* BumbleFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34146EEC2C67BBC80049F7C3 /* BumbleFilterView.swift */; };
+		34146EEF2C67C4B60049F7C3 /* BumbleCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34146EEE2C67C4B60049F7C3 /* BumbleCardView.swift */; };
 		3423BFF92C612484007A366C /* SpotifyPlaylistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3423BFF82C612484007A366C /* SpotifyPlaylistView.swift */; };
 		3423BFFB2C6124BA007A366C /* PlaylistHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3423BFFA2C6124BA007A366C /* PlaylistHeaderCell.swift */; };
 		3423BFFD2C612943007A366C /* PlaylistDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3423BFFC2C612943007A366C /* PlaylistDescriptionCell.swift */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		34146EEA2C67B8040049F7C3 /* BumbleHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BumbleHomeView.swift; sourceTree = "<group>"; };
 		34146EEC2C67BBC80049F7C3 /* BumbleFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BumbleFilterView.swift; sourceTree = "<group>"; };
+		34146EEE2C67C4B60049F7C3 /* BumbleCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BumbleCardView.swift; sourceTree = "<group>"; };
 		3423BFF82C612484007A366C /* SpotifyPlaylistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyPlaylistView.swift; sourceTree = "<group>"; };
 		3423BFFA2C6124BA007A366C /* PlaylistHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistHeaderCell.swift; sourceTree = "<group>"; };
 		3423BFFC2C612943007A366C /* PlaylistDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDescriptionCell.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				34146EEA2C67B8040049F7C3 /* BumbleHomeView.swift */,
+				34146EEE2C67C4B60049F7C3 /* BumbleCardView.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				3423BFF92C612484007A366C /* SpotifyPlaylistView.swift in Sources */,
 				342EA8F82C6676BD00D595B9 /* UINavigationController.swift in Sources */,
 				34945BA92C5E8F14000CA571 /* SpotifyNewReleaseCell.swift in Sources */,
+				34146EEF2C67C4B60049F7C3 /* BumbleCardView.swift in Sources */,
 				34BA16EE2C62847900DC1FBC /* SongRowCell.swift in Sources */,
 				34945B9F2C5E76FB000CA571 /* SpotifyCategoryCell.swift in Sources */,
 				34D916F82C5D3A1200A8662C /* DatabaseHelper.swift in Sources */,
