@@ -78,7 +78,7 @@ extension SpotifyHomeView {
             }
             productRows = rows
             
-        } catch  {
+        } catch {
             
         }
     }

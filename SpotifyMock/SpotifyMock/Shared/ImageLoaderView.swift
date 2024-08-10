@@ -34,3 +34,7 @@ struct ImageLoaderView: View {
         .padding(40)
         .padding(.vertical, 60)
 }
+
+// Image overlays a rectangle and adapts to its form with clipped
+// The image is bigger than the rectangle, but clips to its form
+// allowsHitTesting(false) makes that only the rectangle surface is clickable, not the image surface
