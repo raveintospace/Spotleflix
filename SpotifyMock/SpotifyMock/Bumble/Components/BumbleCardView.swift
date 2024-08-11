@@ -1,7 +1,7 @@
 //
 //  BumbleCardView.swift
 //  SpotifyMock
-//  https://youtu.be/VcidT15AeIQ?si=icXHN72Y1GdXtTZu - min 14
+//  https://youtu.be/VcidT15AeIQ?si=icXHN72Y1GdXtTZu
 //  Created by Uri on 10/8/24.
 //
 
@@ -11,26 +11,47 @@ import SwiftfulUI
 struct BumbleCardView: View {
     
     var user: User = .mock
+    var onSendComplimentPressed: (() -> Void)? = nil
+    var onSuperlikePressed: (() -> Void)? = nil
+    var onXmarkPressed: (() -> Void)? = nil
+    var onChecmarkPressed: (() -> Void)? = nil
+    var onHideAndReportPressed: (() -> Void)? = nil
     
     @State private var cardFrame: CGRect = .zero
     
     var body: some View {
         ScrollView(.vertical) {
             LazyVStack(spacing: 0) {
-//                headerCell
-//                    .frame(height: cardFrame.height)
+                headerCell
+                    .frame(height: cardFrame.height)
                 
                 aboutMeSection
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 24)
+                    .padding(24)
                 
                 myInterestsSection
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 24)
+                    .padding(24)
+                
+                ForEach(user.images, id: \.self) { image in
+                    ImageLoaderView(urlString: image)
+                        .frame(height: cardFrame.height)
+                }
+                
+                locationSection
+                    .padding(24)
+                
+                footerSection
+                    .padding(.vertical, 60)
+                    .padding(.horizontal, 32)
+                
             }
         }
         .scrollIndicators(.hidden)
         .background(.bumbleBackgroundYellow)
+        .overlay(
+            superlikeButton
+                .padding(24)
+            , alignment: .bottomTrailing
+        )
         .clipShape(.rect(cornerRadius: 32))
         .readingFrame { frame in
             cardFrame = frame
@@ -106,6 +127,9 @@ extension BumbleCardView {
             .padding([.horizontal, .trailing], 8)
             .background(.bumbleYellow)
             .clipShape(.rect(cornerRadius: 32))
+            .onTapGesture {
+                onSendComplimentPressed?()
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -129,6 +153,80 @@ extension BumbleCardView {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private var locationSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(spacing: 8) {
+                Image(systemName: "mappin.and.ellipse.circle.fill")
+                Text(user.firstName + "'s location")
+            }
+            .foregroundStyle(.bumbleGray)
+            .font(.body)
+            .fontWeight(.medium)
+            
+            Text("46 miles away")
+                .font(.headline)
+                .foregroundStyle(.bumbleBlack)
+            
+            InterestPillView(iconName: nil, emoji: "🇳🇱", text: "Lives in Amsterdam")
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private var footerSection: some View {
+        VStack(spacing: 24) {
+            HStack(spacing: 0) {
+                Circle()
+                    .fill(.bumbleYellow)
+                    .overlay(
+                        Image(systemName: "xmark")
+                            .font(.title)
+                            .fontWeight(.semibold)
+                    )
+                    .frame(width: 60, height: 60)
+                    .onTapGesture {
+                        onXmarkPressed?()
+                    }
+                
+                Spacer(minLength: 0)
+                
+                Circle()
+                    .fill(.bumbleYellow)
+                    .overlay(
+                        Image(systemName: "checkmark")
+                            .font(.title)
+                            .fontWeight(.semibold)
+                    )
+                    .frame(width: 60, height: 60)
+                    .onTapGesture {
+                        onChecmarkPressed?()
+                    }
+            }
+            
+            Text("Hide and report")
+                .font(.headline)
+                .foregroundStyle(.bumbleGray)
+                .padding(8) // helps clickability
+                .background(.black.opacity(0.001)) // helps clickability
+                .onTapGesture {
+                    onHideAndReportPressed?()
+                }
+        }
+    }
+    
+    private var superlikeButton: some View {
+        Image(systemName: "hexagon.fill")
+            .foregroundStyle(.bumbleYellow)
+            .font(.system(size: 60))
+            .overlay(
+                Image(systemName: "star.fill")
+                    .foregroundStyle(.bumbleBlack)
+                    .font(.system(size: 30, weight: .medium))
+            )
+            .onTapGesture {
+                onSuperlikePressed?()
+            }
     }
 }
 
