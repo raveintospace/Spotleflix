@@ -1,11 +1,12 @@
 //
 //  BumbleHomeView.swift
 //  SpotifyMock
-//
+//  https://youtu.be/rAZItPC1GIY?si=px3p7-0FpBoXIix3 - min 17, logic for onEnded
 //  Created by Uri on 10/8/24.
 //
 
 import SwiftUI
+import SwiftfulUI
 
 struct BumbleHomeView: View {
     
@@ -16,6 +17,9 @@ struct BumbleHomeView: View {
     
     // to track previous, current and next user
     @State private var selectedIndex: Int = 0
+    
+    // to track if user swipes left (false) or right (true)
+    @State private var cardOffsets: [Int: Bool] = [:]  // [UserId: Bool]
     
     var body: some View {
         ZStack {
@@ -36,9 +40,28 @@ struct BumbleHomeView: View {
                             let isNext = (selectedIndex + 1) == index
                             
                             if isPrevious || isCurrent || isNext {
+                                
+                                let offsetValue = cardOffsets[user.id]
+                                
                                 Rectangle()
-                                    .fill(.red)
-                                    .overlay(Text("\(index) is \(user.firstName)"))
+                                    .fill(index == 0 ? .red : .blue)
+                                    .overlay(
+                                        Text("\(index) is \(user.firstName)")
+                                    )
+                                    .withDragGesture(
+                                        .horizontal,
+//                                        minimumDistance: 0,
+                                        resets: true,
+                                        rotationMultiplier: 1.05,
+                                        onChanged: { dragOffset in
+                                            //
+                                        },
+                                        onEnded: { dragOffset in
+                                            //
+                                        }
+                                    )
+                                    .zIndex(Double(allUsers.count - index))
+                                    .offset(x: offsetValue == nil ? 0 : true ? 900 : -900)
                             }
                         }
                     } else {
@@ -111,3 +134,5 @@ extension BumbleHomeView {
 }
 
 // AppStorage retains the value and recovers it when reopening the app
+
+// .zIndex(Double(allUsers.count - index)) -> to have currentUser on top of Zstack
