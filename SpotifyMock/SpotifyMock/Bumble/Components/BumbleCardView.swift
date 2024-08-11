@@ -17,10 +17,14 @@ struct BumbleCardView: View {
     var body: some View {
         ScrollView(.vertical) {
             LazyVStack(spacing: 0) {
-                headerCell
-                    .frame(height: cardFrame.height)
+//                headerCell
+//                    .frame(height: cardFrame.height)
                 
                 aboutMeSection
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 24)
+                
+                myInterestsSection
                     .padding(.horizontal, 24)
                     .padding(.vertical, 24)
             }
@@ -95,7 +99,7 @@ extension BumbleCardView {
             
             HStack(spacing: 0) {
                 BumbleHeartView()
-                Text("Send a Compliment")
+                Text("Send a compliment")
                     .font(.caption)
                     .fontWeight(.semibold)
             }
@@ -110,6 +114,21 @@ extension BumbleCardView {
         Text(title)
             .font(.body)
             .foregroundStyle(.bumbleGray)
+    }
+    
+    private var myInterestsSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: 8) {
+                sectionTitle(title: "My basics")
+                InterestPillGridView(interests: user.basics)
+            }
+            
+            VStack(alignment: .leading, spacing: 8) {
+                sectionTitle(title: "My interests")
+                InterestPillGridView(interests: user.interests)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 
