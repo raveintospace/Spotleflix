@@ -19,9 +19,14 @@ struct BumbleCardView: View {
             LazyVStack(spacing: 0) {
                 headerCell
                     .frame(height: cardFrame.height)
+                
+                aboutMeSection
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 24)
             }
         }
         .scrollIndicators(.hidden)
+        .background(.bumbleBackgroundYellow)
         .clipShape(.rect(cornerRadius: 32))
         .readingFrame { frame in
             cardFrame = frame
@@ -78,8 +83,37 @@ extension BumbleCardView {
             )
         }
     }
+    
+    private var aboutMeSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            sectionTitle(title: "About me")
+            
+            Text(user.aboutMe)
+                .font(.body)
+                .fontWeight(.semibold)
+                .foregroundStyle(.bumbleBlack)
+            
+            HStack(spacing: 0) {
+                BumbleHeartView()
+                Text("Send a Compliment")
+                    .font(.caption)
+                    .fontWeight(.semibold)
+            }
+            .padding([.horizontal, .trailing], 8)
+            .background(.bumbleYellow)
+            .clipShape(.rect(cornerRadius: 32))
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private func sectionTitle(title: String) -> some View {
+        Text(title)
+            .font(.body)
+            .foregroundStyle(.bumbleGray)
+    }
 }
 
-// black.opacity(0.6) twice to extend the opacity
+// black.opacity(0.6) twice to extend the opacity, comment one to check
+
 // SwiftfulUI's .readingFrame reads the frame of device's screen
 // .frame(height: cardFrame.height) -> image frame height = device height
