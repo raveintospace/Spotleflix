@@ -14,10 +14,28 @@ struct InterestPillView: View {
     var text: String = "Graduate Degree"
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack(spacing: 4) {
+            if let iconName {
+                Image(systemName: iconName)
+            } else if let emoji {
+                Text(emoji)
+            }
+            
+            Text(text)
+        }
+        .font(.callout)
+        .fontWeight(.medium)
+        .padding(.vertical, 8)
+        .padding(.horizontal, 12)
+        .foregroundStyle(.bumbleBlack)
+        .background(.bumbleLightYellow)
+        .clipShape(.rect(cornerRadius: 32))
     }
 }
 
 #Preview {
-    InterestPillView()
+    VStack {
+        InterestPillView(iconName: nil)
+        InterestPillView()
+    }
 }
