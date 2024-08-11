@@ -77,7 +77,6 @@ extension SpotifyHomeView {
                 rows.append(ProductRow(title: brand, products: products))
             }
             productRows = rows
-            
         } catch {
             
         }

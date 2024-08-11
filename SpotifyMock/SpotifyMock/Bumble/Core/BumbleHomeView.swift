@@ -12,6 +12,11 @@ struct BumbleHomeView: View {
     @State private var filters: [String] = ["Everyone", "Trending"]
     @AppStorage("bumble_home_filter") private var selectedFilter = "Everyone"
     
+    @State private var allUsers: [User] = []
+    
+    // to track previous, current and next user
+    @State private var selectedIndex: Int = 0
+    
     var body: some View {
         ZStack {
             Color.bumbleWhite.ignoresSafeArea()
@@ -20,10 +25,34 @@ struct BumbleHomeView: View {
                 header
                 BumbleFilterView(options: filters, selection: $selectedFilter)
                     .background(Divider(), alignment: .bottom)
-                BumbleCardView()
+                // BumbleCardView()
+                
+                ZStack {
+                    if !allUsers.isEmpty {
+                        ForEach(Array(allUsers.enumerated()), id: \.offset) { (index, user) in
+                            
+                            let isPrevious = (selectedIndex - 1) == index
+                            let isCurrent = selectedIndex == index
+                            let isNext = (selectedIndex + 1) == index
+                            
+                            if isPrevious || isCurrent || isNext {
+                                Rectangle()
+                                    .fill(.red)
+                                    .overlay(Text("\(index) is \(user.firstName)"))
+                            }
+                        }
+                    } else {
+                        ProgressView()
+                    }
+                }
+                .frame(maxHeight: .infinity) // keeps header & filters always on top, even when we haven't loaded the images
             }
             .padding(8)
         }
+        .task {
+            await getData()
+        }
+        .toolbar(.hidden, for: .navigationBar)
     }
 }
 
@@ -68,6 +97,16 @@ extension BumbleHomeView {
         .font(.title2)
         .fontWeight(.medium)
         .foregroundStyle(.bumbleBlack)
+    }
+    
+    private func getData() async {
+        guard allUsers.isEmpty else { return }
+        
+        do {
+            allUsers = try await DatabaseHelper().getUsers()
+        } catch {
+            
+        }
     }
 }
 
