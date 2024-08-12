@@ -40,32 +40,10 @@ struct BumbleHomeView: View {
                             let isNext = (selectedIndex + 1) == index
                             
                             if isPrevious || isCurrent || isNext {
-                                
                                 let offsetValue = cardOffsets[user.id]
-                                
-                                Rectangle()
-                                    .fill(index == 0 ? .red : .blue)
-                                    .overlay(
-                                        Text("\(index) is \(user.firstName)")
-                                    )
-                                    .withDragGesture(
-                                        .horizontal,
-//                                        minimumDistance: 0,
-                                        resets: true,
-                                        rotationMultiplier: 1.05,
-                                        onChanged: { dragOffset in
-                                            //
-                                        },
-                                        onEnded: { dragOffset in
-                                            if dragOffset.width < -50 {
-                                                userDidSelect(index: index, isLike: false)
-                                            } else if dragOffset.width > 50 {
-                                                userDidSelect(index: index, isLike: true)
-                                            }
-                                        }
-                                    )
+                                userProfileCell(index: index)
                                     .zIndex(Double(allUsers.count - index))
-                                    .offset(x: offsetValue == nil ? 0 : true ? 900 : -900)
+                                    .offset(x: offsetValue == nil ? 0 : offsetValue == true ? 900 : -900)
                             }
                         }
                     } else {
@@ -73,6 +51,7 @@ struct BumbleHomeView: View {
                     }
                 }
                 .frame(maxHeight: .infinity) // keeps header & filters always on top, even when we haven't loaded the images
+                .animation(.smooth, value: cardOffsets)
             }
             .padding(8)
         }
@@ -140,12 +119,37 @@ extension BumbleHomeView {
         let currentUser = allUsers[index]
         cardOffsets[currentUser.id] = isLike // set true or false for UserId
         
-        // increment index to jump to next card
+        // increment index to move to next card
         selectedIndex += 1
         
+    }
+    
+    private func userProfileCell(index: Int) -> some View {
+        Rectangle()
+            .fill(index == 0 ? .red : .blue)
+            .overlay(
+                Text("\(index)")
+            )
+            .withDragGesture(
+                .horizontal,
+                resets: true,
+                rotationMultiplier: 1.05,
+                onChanged: { dragOffset in
+                    //
+                },
+                onEnded: { dragOffset in
+                    if dragOffset.width < -80 {
+                        userDidSelect(index: index, isLike: false)
+                    } else if dragOffset.width > 80 {
+                        userDidSelect(index: index, isLike: true)
+                    }
+                }
+            )
     }
 }
 
 // AppStorage retains the value and recovers it when reopening the app
 
 // .zIndex(Double(allUsers.count - index)) -> to have currentUser on top of Zstack
+
+// .offset(x: offsetValue == nil ? 0 : offsetValue == true ? 900 : -900) -> sets the value of cardOffsets to true (900) or false (-900) with the swipe, value is nil if no swipe
