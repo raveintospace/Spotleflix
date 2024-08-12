@@ -31,7 +31,6 @@ struct BumbleHomeView: View {
                 header
                 BumbleFilterView(options: filters, selection: $selectedFilter)
                     .background(Divider(), alignment: .bottom)
-                // BumbleCardView()
                 
                 ZStack {
                     if !allUsers.isEmpty {
@@ -56,6 +55,7 @@ struct BumbleHomeView: View {
                         .zIndex(99999)
                 }
                 .frame(maxHeight: .infinity) // keeps header & filters always on top, even when we haven't loaded the images
+                .padding(4)
                 .animation(.smooth, value: cardOffsets)
             }
             .padding(8)
