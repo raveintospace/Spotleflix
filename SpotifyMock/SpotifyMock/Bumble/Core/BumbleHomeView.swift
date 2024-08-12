@@ -1,7 +1,7 @@
 //
 //  BumbleHomeView.swift
 //  SpotifyMock
-//  https://youtu.be/rAZItPC1GIY?si=px3p7-0FpBoXIix3 - min 17, logic for onEnded
+//  https://youtu.be/rAZItPC1GIY?si=px3p7-0FpBoXIix3
 //  Created by Uri on 10/8/24.
 //
 
@@ -57,7 +57,11 @@ struct BumbleHomeView: View {
                                             //
                                         },
                                         onEnded: { dragOffset in
-                                            //
+                                            if dragOffset.width < -50 {
+                                                userDidSelect(index: index, isLike: false)
+                                            } else if dragOffset.width > 50 {
+                                                userDidSelect(index: index, isLike: true)
+                                            }
                                         }
                                     )
                                     .zIndex(Double(allUsers.count - index))
@@ -130,6 +134,15 @@ extension BumbleHomeView {
         } catch {
             
         }
+    }
+    
+    private func userDidSelect(index: Int, isLike: Bool) {
+        let currentUser = allUsers[index]
+        cardOffsets[currentUser.id] = isLike // set true or false for UserId
+        
+        // increment index to jump to next card
+        selectedIndex += 1
+        
     }
 }
 
