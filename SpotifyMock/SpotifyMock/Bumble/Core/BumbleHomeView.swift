@@ -21,6 +21,8 @@ struct BumbleHomeView: View {
     // to track if user swipes left (false) or right (true)
     @State private var cardOffsets: [Int: Bool] = [:]  // [UserId: Bool]
     
+    @State private var currentSwipeOffset: CGFloat = 0
+    
     var body: some View {
         ZStack {
             Color.bumbleWhite.ignoresSafeArea()
@@ -49,6 +51,9 @@ struct BumbleHomeView: View {
                     } else {
                         ProgressView()
                     }
+                    
+                    overlaySwipingIndicators
+                        .zIndex(99999)
                 }
                 .frame(maxHeight: .infinity) // keeps header & filters always on top, even when we haven't loaded the images
                 .animation(.smooth, value: cardOffsets)
@@ -135,7 +140,7 @@ extension BumbleHomeView {
                 resets: true,
                 rotationMultiplier: 1.05,
                 onChanged: { dragOffset in
-                    //
+                    currentSwipeOffset = dragOffset.width
                 },
                 onEnded: { dragOffset in
                     if dragOffset.width < -80 {
@@ -146,10 +151,41 @@ extension BumbleHomeView {
                 }
             )
     }
+    
+    private var overlaySwipingIndicators: some View {
+        ZStack {
+            Circle()
+                .fill(.bumbleGray.opacity(0.4))
+                .overlay(
+                    Image(systemName: "xmark")
+                        .font(.title)
+                        .fontWeight(.semibold)
+                )
+                .frame(width: 60, height: 60)
+                .scaleEffect(abs(currentSwipeOffset) > 110 ? 1.5 : 1.0)
+                .offset(x: min(-currentSwipeOffset, 200)) // moves opposite to swipe gesture
+                .offset(x: -100) // starts out of the screen
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Circle()
+                .fill(.bumbleGray.opacity(0.4))
+                .overlay(
+                    Image(systemName: "checkmark")
+                        .font(.title)
+                        .fontWeight(.semibold)
+                )
+                .frame(width: 60, height: 60)
+                .scaleEffect(abs(currentSwipeOffset) > 110 ? 1.5 : 1.0)
+                .offset(x: max(-currentSwipeOffset, -200)) // moves opposite to swipe gesture
+                .offset(x: 100) // starts out of the screen
+                .frame(maxWidth: .infinity, alignment: .trailing)
+        }
+        .animation(.smooth, value: currentSwipeOffset)
+    }
 }
 
 // AppStorage retains the value and recovers it when reopening the app
 
 // .zIndex(Double(allUsers.count - index)) -> to have currentUser on top of Zstack
 
-// .offset(x: offsetValue == nil ? 0 : offsetValue == true ? 900 : -900) -> sets the value of cardOffsets to true (900) or false (-900) with the swipe, value is nil if no swipe
+// .offset(x: offsetValue == nil ? 0 : offsetValue == true ? 900 : -900) -> if the isLike from userDidSelect is true, moves the card to 900; if it's false moves the card to -900; does nothing if value is nil
