@@ -43,7 +43,7 @@ struct BumbleHomeView: View {
                             
                             if isPrevious || isCurrent || isNext {
                                 let offsetValue = cardOffsets[user.id]
-                                userProfileCell(index: index)
+                                userProfileCell(user: user, index: index)
                                     .zIndex(Double(allUsers.count - index))
                                     .offset(x: offsetValue == nil ? 0 : offsetValue == true ? 900 : -900)
                             }
@@ -129,27 +129,35 @@ extension BumbleHomeView {
         
     }
     
-    private func userProfileCell(index: Int) -> some View {
-        Rectangle()
-            .fill(index == 0 ? .red : .blue)
-            .overlay(
-                Text("\(index)")
-            )
-            .withDragGesture(
-                .horizontal,
-                resets: true,
-                rotationMultiplier: 1.05,
-                onChanged: { dragOffset in
-                    currentSwipeOffset = dragOffset.width
-                },
-                onEnded: { dragOffset in
-                    if dragOffset.width < -80 {
-                        userDidSelect(index: index, isLike: false)
-                    } else if dragOffset.width > 80 {
-                        userDidSelect(index: index, isLike: true)
-                    }
+    private func userProfileCell(user: User, index: Int) -> some View {
+        BumbleCardView(
+            user: user,
+            onSendComplimentPressed: nil,
+            onSuperlikePressed: nil,
+            onXmarkPressed: {
+                userDidSelect(index: index, isLike: false)
+            },
+            onChecmarkPressed: {
+                userDidSelect(index: index, isLike: true)
+            },
+            onHideAndReportPressed: nil
+        )
+        .withDragGesture(
+            .horizontal,
+            minimumDistance: 10,    // minimum distance dragged to read as a drag
+            resets: true,
+            rotationMultiplier: 1.05,
+            onChanged: { dragOffset in
+                currentSwipeOffset = dragOffset.width
+            },
+            onEnded: { dragOffset in
+                if dragOffset.width < -80 {
+                    userDidSelect(index: index, isLike: false)
+                } else if dragOffset.width > 80 {
+                    userDidSelect(index: index, isLike: true)
                 }
-            )
+            }
+        )
     }
     
     private var overlaySwipingIndicators: some View {
@@ -189,3 +197,5 @@ extension BumbleHomeView {
 // .zIndex(Double(allUsers.count - index)) -> to have currentUser on top of Zstack
 
 // .offset(x: offsetValue == nil ? 0 : offsetValue == true ? 900 : -900) -> if the isLike from userDidSelect is true, moves the card to 900; if it's false moves the card to -900; does nothing if value is nil
+
+// minimumDistance: 10 -> if we don't set a value, the scrollView won't work, because it will be read always as a drag
