@@ -72,7 +72,7 @@ struct SpotifyNewReleaseCell: View {
                                 onAddToPlaylistPressed?()
                             }
                             .offset(x: -4)  // offset according to padding
-                            .frame(maxWidth: .infinity, alignment: .leading) // similar effect as Spacer
+                            .frame(maxWidth: .infinity, alignment: .leading) // similar effect as Spacer -> set spacing as 0
                         
                         Image(systemName: "play.circle.fill")
                             .foregroundStyle(.spotifyWhite)

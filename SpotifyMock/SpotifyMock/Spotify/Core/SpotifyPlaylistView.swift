@@ -29,6 +29,7 @@ struct SpotifyPlaylistView: View {
                     
                     // GeometryReader in background to handle the vertical offset of PlaylistHeaderCell
                     // Using it in background because it has the same frame than PlaylistHeaderCell without affecting the latter
+                    // .readingFrame is custom geometry from SwiftfulUI
                     
                     PlaylistHeaderCell(
                         height: 250,
