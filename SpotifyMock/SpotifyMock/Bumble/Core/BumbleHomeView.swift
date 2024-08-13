@@ -198,4 +198,4 @@ extension BumbleHomeView {
 
 // .offset(x: offsetValue == nil ? 0 : offsetValue == true ? 900 : -900) -> if the isLike from userDidSelect is true, moves the card to 900; if it's false moves the card to -900; does nothing if value is nil
 
-// minimumDistance: 10 -> if we don't set a value, the scrollView won't work, because it will be read always as a drag
+// minimumDistance: 10 -> if we don't set a value, the scrollView won't work, because it will be always read as a drag
