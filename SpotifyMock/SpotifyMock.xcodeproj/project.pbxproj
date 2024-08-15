@@ -194,6 +194,7 @@
 				34D916E12C5D36BB00A8662C /* SpotifyMockApp.swift */,
 				34D916E32C5D36BB00A8662C /* ContentView.swift */,
 				34945BA52C5E81A2000CA571 /* Extensions */,
+				34E2302C2C6E56E9008C33F9 /* Netflix */,
 				34146EE72C67B6CD0049F7C3 /* Bumble */,
 				34945B992C5E6BA2000CA571 /* Spotify */,
 				34D916F22C5D37C000A8662C /* Shared */,
@@ -221,6 +222,29 @@
 				34D916FB2C5D3CFE00A8662C /* User.swift */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		34E2302C2C6E56E9008C33F9 /* Netflix */ = {
+			isa = PBXGroup;
+			children = (
+				34E2302D2C6E56F6008C33F9 /* Components */,
+				34E2302E2C6E56FC008C33F9 /* Core */,
+			);
+			path = Netflix;
+			sourceTree = "<group>";
+		};
+		34E2302D2C6E56F6008C33F9 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		34E2302E2C6E56FC008C33F9 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
