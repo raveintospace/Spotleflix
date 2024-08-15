@@ -76,10 +76,10 @@ struct NetflixFilterBarView: View {
 }
 
 // preview to check if filter logic works
+// the two properties will be in our parent view
 fileprivate struct NetflixFilterBarViewPreview: View {
     
     @State private var filters = FilterModel.mockArray
-    
     @State private var selectedFilter: FilterModel? = nil
     
     var body: some View {
