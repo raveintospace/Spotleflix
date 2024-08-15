@@ -39,6 +39,7 @@
 		34D917022C5D3FE100A8662C /* SwiftfulRouting in Frameworks */ = {isa = PBXBuildFile; productRef = 34D917012C5D3FE100A8662C /* SwiftfulRouting */; };
 		34E230302C6E5882008C33F9 /* NetflixHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E2302F2C6E5882008C33F9 /* NetflixHomeView.swift */; };
 		34E230322C6E5A07008C33F9 /* NetflixFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E230312C6E5A07008C33F9 /* NetflixFilterCell.swift */; };
+		34E230342C6E5BAD008C33F9 /* NetflixFilterBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E230332C6E5BAD008C33F9 /* NetflixFilterBarView.swift */; };
 		34E2891E2C6BC09B00EE9A7E /* BumbleProfileImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E2891D2C6BC09B00EE9A7E /* BumbleProfileImageCell.swift */; };
 		34E289202C6BC36800EE9A7E /* BumbleChatPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E2891F2C6BC36800EE9A7E /* BumbleChatPreviewCell.swift */; };
 		34E289222C6BCA2100EE9A7E /* BumbleChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E289212C6BCA2100EE9A7E /* BumbleChatsView.swift */; };
@@ -75,6 +76,7 @@
 		34D916FB2C5D3CFE00A8662C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		34E2302F2C6E5882008C33F9 /* NetflixHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetflixHomeView.swift; sourceTree = "<group>"; };
 		34E230312C6E5A07008C33F9 /* NetflixFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetflixFilterCell.swift; sourceTree = "<group>"; };
+		34E230332C6E5BAD008C33F9 /* NetflixFilterBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetflixFilterBarView.swift; sourceTree = "<group>"; };
 		34E2891D2C6BC09B00EE9A7E /* BumbleProfileImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BumbleProfileImageCell.swift; sourceTree = "<group>"; };
 		34E2891F2C6BC36800EE9A7E /* BumbleChatPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BumbleChatPreviewCell.swift; sourceTree = "<group>"; };
 		34E289212C6BCA2100EE9A7E /* BumbleChatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BumbleChatsView.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 		34E2302D2C6E56F6008C33F9 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				34E230332C6E5BAD008C33F9 /* NetflixFilterBarView.swift */,
 				34E230312C6E5A07008C33F9 /* NetflixFilterCell.swift */,
 			);
 			path = Components;
@@ -346,6 +349,7 @@
 				34E289222C6BCA2100EE9A7E /* BumbleChatsView.swift in Sources */,
 				34945BA92C5E8F14000CA571 /* SpotifyNewReleaseCell.swift in Sources */,
 				34146EEF2C67C4B60049F7C3 /* BumbleCardView.swift in Sources */,
+				34E230342C6E5BAD008C33F9 /* NetflixFilterBarView.swift in Sources */,
 				34BA16EE2C62847900DC1FBC /* SongRowCell.swift in Sources */,
 				34945B9F2C5E76FB000CA571 /* SpotifyCategoryCell.swift in Sources */,
 				34D916F82C5D3A1200A8662C /* DatabaseHelper.swift in Sources */,

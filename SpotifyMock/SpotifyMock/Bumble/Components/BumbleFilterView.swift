@@ -58,4 +58,5 @@ fileprivate struct BumbleFilterViewPreview: View {
 // HStack aligned top so the bar selection doesn't "move" the text
 // animation value -> what activates the animation
 // matchedGeometryEffect creates a smooth transition because we are identifying the bar as the same for the two texts, instead of creating two bars
-// Binding because homeview helds the State of what filter is selected
+
+// Binding because homeView manages the @State (@appstorage in this project) of what filter is selected, homeView is inmediately updated
