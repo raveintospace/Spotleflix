@@ -35,7 +35,6 @@ struct SpotifyHomeView: View {
                                     .padding(.horizontal, 16)
                             }
                             listRows
-                            
                         }
                     } header: {
                         header

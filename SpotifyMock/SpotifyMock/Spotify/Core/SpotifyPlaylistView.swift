@@ -100,7 +100,7 @@ struct SpotifyPlaylistView: View {
 extension SpotifyPlaylistView {
     
     // another api call to mimic real app logic
-    // we don't pass the products from home view, we make another api call
+    // we don't pass all the products from home view, we make another api call
     private func getData() async {
         guard products.isEmpty else { return }
         

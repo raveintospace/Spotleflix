@@ -1,13 +1,16 @@
 //
 //  BumbleChatsView.swift
 //  SpotifyMock
-//  https://youtu.be/mpt6QnbE3o8?si=HaIoH8hLgmKbBGCF - min7
+//  https://youtu.be/mpt6QnbE3o8?si=HaIoH8hLgmKbBGCF
 //  Created by Uri on 13/8/24.
 //
 
 import SwiftUI
+import SwiftfulRouting
 
 struct BumbleChatsView: View {
+    
+    @Environment(\.router) var router
     
     @State private var allUsers: [User] = []
     
@@ -20,6 +23,8 @@ struct BumbleChatsView: View {
                     .padding(16)
                 
                 matchQueueSection
+                    .padding(.vertical, 16)
+                
                 recentChatsSection
             }
         }
@@ -31,7 +36,9 @@ struct BumbleChatsView: View {
 }
 
 #Preview {
-    BumbleChatsView()
+    RouterView { _ in
+        BumbleChatsView()
+    }
 }
 
 extension BumbleChatsView {
@@ -49,6 +56,9 @@ extension BumbleChatsView {
     private var header: some View {
         HStack(spacing: 0) {
             Image(systemName: "line.horizontal.3")
+                .onTapGesture {
+                    router.dismissScreen()
+                }
             Spacer()
             Image(systemName: "magnifyingglass")
         }
@@ -79,7 +89,7 @@ extension BumbleChatsView {
                 .padding(.horizontal, 16) // profile pics "disappear" nicely
             }
             .scrollIndicators(.hidden)
-            .frame(height: 100) // to set scrollview below match queue title
+            .frame(height: 100) // to set scrollview below "match queue" title
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
