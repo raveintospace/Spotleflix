@@ -1,7 +1,7 @@
 //
 //  BumbleChatsView.swift
 //  SpotifyMock
-//
+//  https://youtu.be/mpt6QnbE3o8?si=HaIoH8hLgmKbBGCF - min7
 //  Created by Uri on 13/8/24.
 //
 
@@ -19,36 +19,9 @@ struct BumbleChatsView: View {
                 header
                     .padding(16)
                 
-                VStack(alignment: .leading, spacing: 8) {
-                    Group {
-                        Text("Match Queue ")
-                        +
-                        Text("(\(allUsers.count))")
-                            .foregroundStyle(.bumbleGray)
-                    }
-                    .padding(.horizontal, 16)
-                    
-                    ScrollView(.horizontal) {
-                        LazyHStack(spacing: 16) {
-                            ForEach(allUsers) { user in
-                                BumbleProfileImageCell(
-                                    imageName: user.image,
-                                    percentageRemaining: Double.random(in: 0...1),
-                                    hasNewMessage: Bool.random()
-                                )
-                            }
-                        }
-                        .padding(.horizontal, 16) // profile pics "disappear" nicely
-                    }
-                    .scrollIndicators(.hidden)
-                    .frame(height: 100) // to set scrollview below match queue
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                
-                Spacer()
+                matchQueueSection
+                recentChatsSection
             }
-            
-            
         }
         .task {
             await getData()
@@ -81,5 +54,68 @@ extension BumbleChatsView {
         }
         .font(.title)
         .fontWeight(.medium)
+    }
+    
+    private var matchQueueSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Group {
+                Text("Match Queue ")
+                +
+                Text("(\(allUsers.count))")
+                    .foregroundStyle(.bumbleGray)
+            }
+            .padding(.horizontal, 16)
+            
+            ScrollView(.horizontal) {
+                LazyHStack(spacing: 16) {
+                    ForEach(allUsers) { user in
+                        BumbleProfileImageCell(
+                            imageName: user.image,
+                            percentageRemaining: Double.random(in: 0...1),
+                            hasNewMessage: Bool.random()
+                        )
+                    }
+                }
+                .padding(.horizontal, 16) // profile pics "disappear" nicely
+            }
+            .scrollIndicators(.hidden)
+            .frame(height: 100) // to set scrollview below match queue title
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private var recentChatsSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 0) {
+                Group {
+                    Text("Chats")
+                    +
+                    Text("(Recent)")
+                        .foregroundStyle(.bumbleGray)
+                }
+                Spacer(minLength: 0)
+                Image(systemName: "line.horizontal.3.decrease")
+                    .font(.title2)
+            }
+            .padding(.horizontal, 16)
+            
+            ScrollView(.vertical) {
+                LazyVStack(spacing: 16) {
+                    ForEach(allUsers) { user in
+                        BumbleChatPreviewCell(
+                            imageName: user.images.randomElement()!,
+                            percentageRemaining: Double.random(in: 0...1),
+                            hasNewMessage: Bool.random(),
+                            userName: user.firstName,
+                            message: user.aboutMe,
+                            isYourMove: Bool.random()
+                        )
+                    }
+                }
+                .padding(16)
+            }
+            .scrollIndicators(.hidden)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
