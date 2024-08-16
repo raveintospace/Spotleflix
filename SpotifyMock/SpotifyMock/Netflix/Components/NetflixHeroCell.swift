@@ -1,7 +1,7 @@
 //
 //  NetflixHeroCell.swift
 //  SpotifyMock
-//
+//  https://youtu.be/HcM3K7nlpHM?si=ilVNrmGX8M1EwpdD
 //  Created by Uri on 16/8/24.
 //
 
