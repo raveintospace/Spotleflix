@@ -223,7 +223,7 @@ extension NetflixHomeView {
 // ZStack's alignment top makes the header / filterBar to be on the top
 // header & filters are above ScrollView
 
-// .readingFrame to read the space the VStack occupies on the screen and then create a cell of the same size
+// .readingFrame to read the space the VStack occupies on the screen and then create a Rectangle of the same height, so HeroCell is below fullHeaderWithFilters
 // if fullHeaderSize == .zero -> set fullHeaderSize only if is .zero
 
 // set the padding on the HStack so the scroll view "eats the edges" of screen
