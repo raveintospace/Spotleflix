@@ -127,9 +127,11 @@ extension NetflixHomeView {
                     selectedFilter: selectedFilter
                 )
                 .padding(.top, 16)
+                .transition(.move(edge: .top).combined(with: .opacity))
             }
         }
         .background(.blue)
+        .animation(.smooth, value: scrollViewOffset)
         .readingFrame { frame in
             if fullHeaderSize == .zero {
                 fullHeaderSize = frame.size
@@ -197,3 +199,5 @@ extension NetflixHomeView {
 // https://youtu.be/OL6CSivnrqk?si=GnjDFqQjQL1TOD1B
 // ScrollViewWithOnScrollChanged -> SwiftfulUI
 // onScrollChanged reads vertical scroll (Y) to hide filters & update header's opacity
+
+// .transition(.move(edge: .top).combined(with: .opacity)) -> move top top and make it transparent
