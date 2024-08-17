@@ -31,6 +31,8 @@ struct Product: Codable, Identifiable {
         brand ?? ""
     }
     
+    // to remain the same value instead of recalculating it when it is called
+    // 25% of the time will be true
     let recentlyAdded: Bool = {
         return Int.random(in: 1...4) == 1
     }()
