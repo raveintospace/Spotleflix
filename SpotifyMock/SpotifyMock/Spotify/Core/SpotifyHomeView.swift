@@ -73,7 +73,7 @@ extension SpotifyHomeView {
             for brand in allBrands {
                 // commented to have more products, otherwise only products of brand
                 // let products = self.products.filter({ $0.brand == brand })
-                rows.append(ProductRow(title: brand, products: products))
+                rows.append(ProductRow(title: brand, products: products.shuffled()))
             }
             productRows = rows
         } catch {

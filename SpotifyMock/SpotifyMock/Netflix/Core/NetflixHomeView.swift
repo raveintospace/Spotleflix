@@ -27,31 +27,9 @@ struct NetflixHomeView: View {
         ZStack(alignment: .top) {
             Color.netflixBlack.ignoresSafeArea()
             
-            ScrollViewWithOnScrollChanged(
-                .vertical,
-                showsIndicators: false,
-                content: {
-                    VStack(spacing: 8) {
-                        Rectangle()
-                            .opacity(0)
-                            .frame(height: fullHeaderSize.height)
-                        
-                        if let heroProduct {
-                            heroCell(heroProduct: heroProduct)
-                        }
-                        
-                        Text("\(scrollViewOffset)")
-                            .foregroundStyle(.red)
-                        
-                        categoryRows
-                    }
-                },
-                onScrollChanged: { offset in
-                    scrollViewOffset = offset.y
-                }
-            )
-            
-            fullHeader
+            backgroundGradientLayer
+            scrollViewLayer
+            fullHeaderWithFilters
         }
         .foregroundStyle(.netflixWhite)
         .task {
@@ -81,12 +59,56 @@ extension NetflixHomeView {
             for brand in allBrands {
                 // commented to have more products, otherwise only products of brand
                 // let products = self.products.filter({ $0.brand == brand })
-                rows.append(ProductRow(title: brand, products: products))
+                rows.append(ProductRow(title: brand, products: products.shuffled()))
             }
             productRows = rows
         } catch {
             
         }
+    }
+    
+    private var backgroundGradientLayer: some View {
+        ZStack {
+            LinearGradient(
+                colors: [.netflixDarkGray.opacity(1), .netflixDarkGray.opacity(0)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
+            
+            LinearGradient(
+                colors: [.netflixDarkRed.opacity(0.5), .netflixDarkRed.opacity(0)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
+        }
+        .frame(maxHeight: max(10, (400 + (scrollViewOffset * 0.75))))
+        .opacity(scrollViewOffset < -250 ? 0 : 1)
+        .animation(.easeInOut, value: scrollViewOffset)
+    }
+    
+    private var scrollViewLayer: some View {
+        ScrollViewWithOnScrollChanged(
+            .vertical,
+            showsIndicators: false,
+            content: {
+                VStack(spacing: 8) {
+                    Rectangle()
+                        .opacity(0)
+                        .frame(height: fullHeaderSize.height)
+                    
+                    if let heroProduct {
+                        heroCell(heroProduct: heroProduct)
+                    }
+                    
+                    categoryRows
+                }
+            },
+            onScrollChanged: { offset in
+                scrollViewOffset = min(0, offset.y)
+            }
+        )
     }
     
     private var header: some View {
@@ -110,7 +132,7 @@ extension NetflixHomeView {
         }
     }
     
-    private var fullHeader: some View {
+    private var fullHeaderWithFilters: some View {
         VStack(spacing: 0) {
             header
                 .padding(.horizontal, 16)
@@ -130,7 +152,18 @@ extension NetflixHomeView {
                 .transition(.move(edge: .top).combined(with: .opacity))
             }
         }
-        .background(.blue)
+        .padding(.bottom, 8)
+        .background(
+            ZStack {
+                if scrollViewOffset < -70 {
+                    Rectangle()
+                        .fill(.clear)
+                        .background(.ultraThinMaterial)
+                        .brightness(-0.2)
+                        .ignoresSafeArea()
+                }
+            }
+        )
         .animation(.smooth, value: scrollViewOffset)
         .readingFrame { frame in
             if fullHeaderSize == .zero {
@@ -193,11 +226,14 @@ extension NetflixHomeView {
 // .readingFrame to read the space the VStack occupies on the screen and then create a cell of the same size
 // if fullHeaderSize == .zero -> set fullHeaderSize only if is .zero
 
-
 // set the padding on the HStack so the scroll view "eats the edges" of screen
 
-// https://youtu.be/OL6CSivnrqk?si=GnjDFqQjQL1TOD1B
+// https://youtu.be/OL6CSivnrqk?si=GnjDFqQjQL1TOD1B - Netflix L4
 // ScrollViewWithOnScrollChanged -> SwiftfulUI
 // onScrollChanged reads vertical scroll (Y) to hide filters & update header's opacity
+// scrollViewOffset = min(0, offset.y) -> only update it when 0 or less (-), animations are smooth
 
-// .transition(.move(edge: .top).combined(with: .opacity)) -> move top top and make it transparent
+// .transition(.move(edge: .top).combined(with: .opacity)) -> move to top and make it transparent
+
+// .frame(maxHeight: 400 + (scrollViewOffset * 0.75)) Gradient scrolls with scrollView, but slower
+// frame max(10 -> never gets below size 10
