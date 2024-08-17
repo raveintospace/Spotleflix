@@ -16,6 +16,9 @@ struct NetflixHomeView: View {
     // tracks size of VStack with header + filters
     @State private var fullHeaderSize: CGSize = .zero
     
+    // tracks vertical scroll of ScrollViewWith...
+    @State private var scrollViewOffset: CGFloat = 0
+    
     @State private var currentUser: User? = nil
     @State private var productRows: [ProductRow] = []
     @State private var heroProduct: Product? = nil
@@ -24,20 +27,29 @@ struct NetflixHomeView: View {
         ZStack(alignment: .top) {
             Color.netflixBlack.ignoresSafeArea()
             
-            ScrollView(.vertical) {
-                VStack(spacing: 8) {
-                    Rectangle()
-                        .opacity(0)
-                        .frame(height: fullHeaderSize.height)
-                    
-                    if let heroProduct {
-                        heroCell(heroProduct: heroProduct)
+            ScrollViewWithOnScrollChanged(
+                .vertical,
+                showsIndicators: false,
+                content: {
+                    VStack(spacing: 8) {
+                        Rectangle()
+                            .opacity(0)
+                            .frame(height: fullHeaderSize.height)
+                        
+                        if let heroProduct {
+                            heroCell(heroProduct: heroProduct)
+                        }
+                        
+                        Text("\(scrollViewOffset)")
+                            .foregroundStyle(.red)
+                        
+                        categoryRows
                     }
-                    
-                    categoryRows
+                },
+                onScrollChanged: { offset in
+                    scrollViewOffset = offset.y
                 }
-            }
-            .scrollIndicators(.hidden)
+            )
             
             fullHeader
         }
@@ -103,21 +115,25 @@ extension NetflixHomeView {
             header
                 .padding(.horizontal, 16)
             
-            NetflixFilterBarView(
-                filters: filters,
-                onXMarkPressed: {
-                    selectedFilter = nil
-                },
-                onFilterPressed: { newFilter in
-                    selectedFilter = newFilter
-                },
-                selectedFilter: selectedFilter
-            )
-            .padding(.top, 16)
+            if scrollViewOffset > -20 {
+                NetflixFilterBarView(
+                    filters: filters,
+                    onXMarkPressed: {
+                        selectedFilter = nil
+                    },
+                    onFilterPressed: { newFilter in
+                        selectedFilter = newFilter
+                    },
+                    selectedFilter: selectedFilter
+                )
+                .padding(.top, 16)
+            }
         }
         .background(.blue)
         .readingFrame { frame in
-            fullHeaderSize = frame.size
+            if fullHeaderSize == .zero {
+                fullHeaderSize = frame.size
+            }
         }
     }
     
@@ -173,5 +189,11 @@ extension NetflixHomeView {
 // header & filters are above ScrollView
 
 // .readingFrame to read the space the VStack occupies on the screen and then create a cell of the same size
+// if fullHeaderSize == .zero -> set fullHeaderSize only if is .zero
+
 
 // set the padding on the HStack so the scroll view "eats the edges" of screen
+
+// https://youtu.be/OL6CSivnrqk?si=GnjDFqQjQL1TOD1B
+// ScrollViewWithOnScrollChanged -> SwiftfulUI
+// onScrollChanged reads vertical scroll (Y) to hide filters & update header's opacity
