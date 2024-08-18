@@ -265,8 +265,8 @@
 		34E2302E2C6E56FC008C33F9 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				34E2302F2C6E5882008C33F9 /* NetflixHomeView.swift */,
 				34C9108C2C724FFC0064DE25 /* NetflixDetailView.swift */,
+				34E2302F2C6E5882008C33F9 /* NetflixHomeView.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";

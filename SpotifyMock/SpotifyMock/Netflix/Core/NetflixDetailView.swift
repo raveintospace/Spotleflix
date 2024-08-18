@@ -31,7 +31,25 @@ struct NetflixDetailView: View {
                 )
                 
                 ScrollView(.vertical) {
-                    
+                    VStack(spacing: 16) {
+                        NetflixDetailProductView(
+                            title: product.title,
+                            isNew: true,
+                            yearReleased: "2024",
+                            seasonCount: 6,
+                            hasClosedCaptions: true,
+                            TopTenNumber: 3,
+                            descriptionText: product.description,
+                            castText: "Cast: Joey Tribbiani, Ross Geller, Rachel Green",
+                            onPlayPressed: {
+                                
+                            },
+                            onDownloadPressed: {
+                                
+                            }
+                        )
+                    }
+                    .padding(8)
                 }
                 .scrollIndicators(.hidden)
             }
