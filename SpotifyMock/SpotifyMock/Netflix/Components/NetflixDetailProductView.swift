@@ -1,7 +1,7 @@
 //
 //  NetflixDetailProductView.swift
 //  SpotifyMock
-//
+//  https://youtu.be/05nHvBhhfow?si=1xZx5CflZ7ol2qkJ
 //  Created by Uri on 18/8/24.
 //
 
