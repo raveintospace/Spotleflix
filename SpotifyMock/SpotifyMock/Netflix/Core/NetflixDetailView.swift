@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import SwiftfulRouting
 
 struct NetflixDetailView: View {
+    
+    @Environment(\.router) var router
     
     var product: Product = .mock
     
@@ -28,7 +31,7 @@ struct NetflixDetailView: View {
                         
                     },
                     onXMarkPressed: {
-                        
+                        router.dismissScreen()
                     }
                 )
                 
@@ -51,7 +54,9 @@ struct NetflixDetailView: View {
 }
 
 #Preview {
-    NetflixDetailView()
+    RouterView { _ in
+        NetflixDetailView()
+    }
 }
 
 extension NetflixDetailView {
@@ -63,6 +68,12 @@ extension NetflixDetailView {
             products = try await DatabaseHelper().getProducts()
         } catch {
             
+        }
+    }
+    
+    private func onProductPressed(product: Product) {
+        router.showScreen(.sheet) { _ in
+            NetflixDetailView(product: product)
         }
     }
     
@@ -117,6 +128,9 @@ extension NetflixDetailView {
                         isRecentlyAdded: product.recentlyAdded,
                         topTenRanking: nil
                     )
+                    .onTapGesture {
+                        onProductPressed(product: product)
+                    }
                 }
             })
             

@@ -78,6 +78,16 @@ struct BumbleHomeView: View {
 
 extension BumbleHomeView {
     
+    private func getData() async {
+        guard allUsers.isEmpty else { return }
+        
+        do {
+            allUsers = try await DatabaseHelper().getUsers()
+        } catch {
+            
+        }
+    }
+    
     private var header: some View {
         HStack(spacing: 0) {
             HStack(spacing: 0) {
@@ -115,16 +125,6 @@ extension BumbleHomeView {
         .font(.title2)
         .fontWeight(.medium)
         .foregroundStyle(.bumbleBlack)
-    }
-    
-    private func getData() async {
-        guard allUsers.isEmpty else { return }
-        
-        do {
-            allUsers = try await DatabaseHelper().getUsers()
-        } catch {
-            
-        }
     }
     
     private func userDidSelect(index: Int, isLike: Bool) {

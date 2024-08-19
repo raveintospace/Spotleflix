@@ -7,8 +7,11 @@
 
 import SwiftUI
 import SwiftfulUI
+import SwiftfulRouting
 
 struct NetflixHomeView: View {
+    
+    @Environment(\.router) var router
     
     @State private var filters = FilterModel.mockArray
     @State private var selectedFilter: FilterModel? = nil
@@ -40,7 +43,9 @@ struct NetflixHomeView: View {
 }
 
 #Preview {
-    NetflixHomeView()
+    RouterView { _ in
+        NetflixHomeView()
+    }
 }
 
 extension NetflixHomeView {
@@ -64,6 +69,12 @@ extension NetflixHomeView {
             productRows = rows
         } catch {
             
+        }
+    }
+    
+    private func onProductPressed(product: Product) {
+        router.showScreen(.sheet) { _ in
+            NetflixDetailView(product: product)
         }
     }
     
@@ -116,6 +127,9 @@ extension NetflixHomeView {
             Text("For You")
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.title)
+                .onTapGesture {
+                    router.dismissScreen()
+                }
             
             HStack(spacing: 16) {
                 Image(systemName: "tv.badge.wifi")
@@ -179,13 +193,13 @@ extension NetflixHomeView {
             title: heroProduct.title,
             categories: [heroProduct.category.capitalized, heroProduct._brand],
             onBackgroundPressed: {
-                
+                onProductPressed(product: heroProduct)
             },
             onPlayPressed: {
-                
+                onProductPressed(product: heroProduct)
             },
             onMyListPressed: {
-                
+
             }
         )
         .padding(24)
@@ -208,6 +222,9 @@ extension NetflixHomeView {
                                     isRecentlyAdded: product.recentlyAdded,
                                     topTenRanking: rowIndex == 1 ? (index + 1) : nil
                                 )
+                                .onTapGesture {
+                                    onProductPressed(product: product)
+                                }
                             }
                         }
                         .padding(.horizontal, 16)
@@ -237,3 +254,24 @@ extension NetflixHomeView {
 
 // .frame(maxHeight: 400 + (scrollViewOffset * 0.75)) Gradient scrolls with scrollView, but slower
 // frame max(10 -> never gets below size 10
+
+
+/*
+ MVVM
+ Move this to viewmodel
+ @State private var filters = FilterModel.mockArray
+ @State private var selectedFilter: FilterModel? = nil
+ 
+ // tracks size of VStack with header + filters
+ @State private var fullHeaderSize: CGSize = .zero
+ 
+ // tracks vertical scroll of ScrollViewWith...
+ @State private var scrollViewOffset: CGFloat = 0
+ 
+ @State private var currentUser: User? = nil
+ @State private var productRows: [ProductRow] = []
+ @State private var heroProduct: Product? = nil
+ 
+ move funcs to viewmodel
+ */
+
