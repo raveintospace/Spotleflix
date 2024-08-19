@@ -1,7 +1,7 @@
 //
 //  RateButton.swift
 //  SpotifyMock
-//  https://youtu.be/ZJad8eT3Xpk?si=j2Wk8yVIS_0J8Rrd - min 15
+//  https://youtu.be/ZJad8eT3Xpk?si=j2Wk8yVIS_0J8Rrd
 //  Created by Uri on 18/8/24.
 //
 
