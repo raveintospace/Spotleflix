@@ -13,18 +13,21 @@ struct BumbleHomeView: View {
     
     @Environment(\.router) var router
     
-    @State private var filters: [String] = ["Everyone", "Trending"]
+    @State private var viewModel = BumbleViewModel()
+    
     @AppStorage("bumble_home_filter") private var selectedFilter = "Everyone"
     
-    @State private var allUsers: [User] = []
-    
-    // to track previous, current and next user
-    @State private var selectedIndex: Int = 0
-    
-    // to track if user swipes left (false) or right (true)
-    @State private var cardOffsets: [Int: Bool] = [:]  // [UserId: Bool]
-    
-    @State private var currentSwipeOffset: CGFloat = 0
+//    @State private var filters: [String] = ["Everyone", "Trending"]
+//    
+//    @State private var allUsers: [User] = []
+//    
+//    // to track previous, current and next user
+//    @State private var selectedIndex: Int = 0
+//    
+//    // to track if user swipes left (false) or right (true)
+//    @State private var cardOffsets: [Int: Bool] = [:]  // [UserId: Bool]
+//    
+//    @State private var currentSwipeOffset: CGFloat = 0
     
     var body: some View {
         ZStack {
@@ -32,21 +35,21 @@ struct BumbleHomeView: View {
             
             VStack(spacing: 12) {
                 header
-                BumbleFilterView(options: filters, selection: $selectedFilter)
+                BumbleFilterView(options: viewModel.filters, selection: $selectedFilter)
                     .background(Divider(), alignment: .bottom)
                 
                 ZStack {
-                    if !allUsers.isEmpty {
-                        ForEach(Array(allUsers.enumerated()), id: \.offset) { (index, user) in
+                    if !viewModel.allUsers.isEmpty {
+                        ForEach(Array(viewModel.allUsers.enumerated()), id: \.offset) { (index, user) in
                             
-                            let isPrevious = (selectedIndex - 1) == index
-                            let isCurrent = selectedIndex == index
-                            let isNext = (selectedIndex + 1) == index
+                            let isPrevious = (viewModel.selectedIndex - 1) == index
+                            let isCurrent = viewModel.selectedIndex == index
+                            let isNext = (viewModel.selectedIndex + 1) == index
                             
                             if isPrevious || isCurrent || isNext {
-                                let offsetValue = cardOffsets[user.id]
+                                let offsetValue = viewModel.cardOffsets[user.id]
                                 userProfileCell(user: user, index: index)
-                                    .zIndex(Double(allUsers.count - index))
+                                    .zIndex(Double(viewModel.allUsers.count - index))
                                     .offset(x: offsetValue == nil ? 0 : offsetValue == true ? 900 : -900)
                             }
                         }
@@ -59,12 +62,12 @@ struct BumbleHomeView: View {
                 }
                 .frame(maxHeight: .infinity) // keeps header & filters always on top, even when we haven't loaded the images
                 .padding(4)
-                .animation(.smooth, value: cardOffsets)
+                .animation(.smooth, value: viewModel.cardOffsets)
             }
             .padding(8)
         }
         .task {
-            await getData()
+            await viewModel.getData()
         }
         .toolbar(.hidden, for: .navigationBar)
     }
@@ -78,15 +81,15 @@ struct BumbleHomeView: View {
 
 extension BumbleHomeView {
     
-    private func getData() async {
-        guard allUsers.isEmpty else { return }
-        
-        do {
-            allUsers = try await DatabaseHelper().getUsers()
-        } catch {
-            
-        }
-    }
+//    private func getData() async {
+//        guard viewModel.allUsers.isEmpty else { return }
+//        
+//        do {
+//            viewModel.allUsers = try await DatabaseHelper().getUsers()
+//        } catch {
+//            
+//        }
+//    }
     
     private var header: some View {
         HStack(spacing: 0) {
@@ -117,7 +120,7 @@ extension BumbleHomeView {
                 .background(.black.opacity(0.001))
                 .onTapGesture {
                     router.showScreen(.push) { _ in
-                        BumbleChatsView()
+                        BumbleChatsView(viewModel: viewModel)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
@@ -128,11 +131,11 @@ extension BumbleHomeView {
     }
     
     private func userDidSelect(index: Int, isLike: Bool) {
-        let currentUser = allUsers[index]
-        cardOffsets[currentUser.id] = isLike // set true or false for UserId
+        let currentUser = viewModel.allUsers[index]
+        viewModel.cardOffsets[currentUser.id] = isLike // set true or false for UserId
         
         // increment index to move to next card
-        selectedIndex += 1
+        viewModel.selectedIndex += 1
         
     }
     
@@ -155,7 +158,7 @@ extension BumbleHomeView {
             resets: true,
             rotationMultiplier: 1.05,
             onChanged: { dragOffset in
-                currentSwipeOffset = dragOffset.width
+                viewModel.currentSwipeOffset = dragOffset.width
             },
             onEnded: { dragOffset in
                 if dragOffset.width < -80 {
@@ -177,8 +180,8 @@ extension BumbleHomeView {
                         .fontWeight(.semibold)
                 )
                 .frame(width: 60, height: 60)
-                .scaleEffect(abs(currentSwipeOffset) > 110 ? 1.5 : 1.0)
-                .offset(x: min(-currentSwipeOffset, 200)) // moves opposite to swipe gesture
+                .scaleEffect(abs(viewModel.currentSwipeOffset) > 110 ? 1.5 : 1.0)
+                .offset(x: min(-viewModel.currentSwipeOffset, 200)) // moves opposite to swipe gesture
                 .offset(x: -100) // starts out of the screen
                 .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -190,12 +193,12 @@ extension BumbleHomeView {
                         .fontWeight(.semibold)
                 )
                 .frame(width: 60, height: 60)
-                .scaleEffect(abs(currentSwipeOffset) > 110 ? 1.5 : 1.0)
-                .offset(x: max(-currentSwipeOffset, -200)) // moves opposite to swipe gesture
+                .scaleEffect(abs(viewModel.currentSwipeOffset) > 110 ? 1.5 : 1.0)
+                .offset(x: max(-viewModel.currentSwipeOffset, -200)) // moves opposite to swipe gesture
                 .offset(x: 100) // starts out of the screen
                 .frame(maxWidth: .infinity, alignment: .trailing)
         }
-        .animation(.smooth, value: currentSwipeOffset)
+        .animation(.smooth, value: viewModel.currentSwipeOffset)
     }
 }
 

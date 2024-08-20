@@ -12,7 +12,8 @@ struct BumbleChatsView: View {
     
     @Environment(\.router) var router
     
-    @State private var allUsers: [User] = []
+    @Bindable var viewModel: BumbleViewModel
+    //@State private var allUsers: [User] = []
     
     var body: some View {
         ZStack {
@@ -29,7 +30,7 @@ struct BumbleChatsView: View {
             }
         }
         .task {
-            await getData()
+            await viewModel.getData()
         }
         .toolbar(.hidden, for: .navigationBar)
     }
@@ -37,21 +38,21 @@ struct BumbleChatsView: View {
 
 #Preview {
     RouterView { _ in
-        BumbleChatsView()
+        BumbleChatsView(viewModel: BumbleViewModel())
     }
 }
 
 extension BumbleChatsView {
     
-    private func getData() async {
-        guard allUsers.isEmpty else { return }
-        
-        do {
-            allUsers = try await DatabaseHelper().getUsers()
-        } catch {
-            
-        }
-    }
+//    private func getData() async {
+//        guard allUsers.isEmpty else { return }
+//        
+//        do {
+//            allUsers = try await DatabaseHelper().getUsers()
+//        } catch {
+//            
+//        }
+//    }
     
     private var header: some View {
         HStack(spacing: 0) {
@@ -64,21 +65,23 @@ extension BumbleChatsView {
         }
         .font(.title)
         .fontWeight(.medium)
+        .foregroundStyle(.bumbleBlack)
     }
     
     private var matchQueueSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Group {
-                Text("Match Queue ")
+                Text("Match queue ")
+                    .foregroundStyle(.bumbleBlack)
                 +
-                Text("(\(allUsers.count))")
+                Text("(\(viewModel.allUsers.count))")
                     .foregroundStyle(.bumbleGray)
             }
             .padding(.horizontal, 16)
             
             ScrollView(.horizontal) {
                 LazyHStack(spacing: 16) {
-                    ForEach(allUsers) { user in
+                    ForEach(viewModel.allUsers) { user in
                         BumbleProfileImageCell(
                             imageName: user.image,
                             percentageRemaining: Double.random(in: 0...1),
@@ -99,6 +102,7 @@ extension BumbleChatsView {
             HStack(spacing: 0) {
                 Group {
                     Text("Chats")
+                        .foregroundStyle(.bumbleBlack)
                     +
                     Text("(Recent)")
                         .foregroundStyle(.bumbleGray)
@@ -106,12 +110,13 @@ extension BumbleChatsView {
                 Spacer(minLength: 0)
                 Image(systemName: "line.horizontal.3.decrease")
                     .font(.title2)
+                    .foregroundStyle(.bumbleBlack)
             }
             .padding(.horizontal, 16)
             
             ScrollView(.vertical) {
                 LazyVStack(spacing: 16) {
-                    ForEach(allUsers) { user in
+                    ForEach(viewModel.allUsers) { user in
                         BumbleChatPreviewCell(
                             imageName: user.images.randomElement()!,
                             percentageRemaining: Double.random(in: 0...1),
