@@ -17,7 +17,7 @@ struct NetflixMovieCell: View {
     var topTenRanking: Int? = nil
     
     var body: some View {
-        HStack(alignment: .bottom, spacing: -5) {
+        HStack(alignment: .bottom, spacing: 0) {
             if let topTenRanking {
                 Text("\(topTenRanking)")
                     .font(.system(size: 100, weight: .medium, design: .serif))
@@ -89,4 +89,4 @@ struct NetflixMovieCell: View {
 }
 
 // having a fixed size makes the component more performant
-// spacing -8 so numbers are "behind" the image
+// spacing -8 so numbers are "behind" the image -> removed
