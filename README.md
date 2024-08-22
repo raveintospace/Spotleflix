@@ -6,7 +6,7 @@ Project to mock UI features of Spotify, Bumble & Netflix following Swiftful Thin
 <li>Shared components: Asyncrhonous DatabaseHelper, Data models (User & Product) and a ImageLoaderView</li>
 <li>Package Dependencies: SDWebImageSwiftUI // SwiftfulRouting // SwiftfulUI</li>
 <li>Extensions: View (to update foreground & background color) and UINavigationController (to allow going back to previous viewControllers swiping left)</li>
-<li>Specific Color Theme for each app </li>
+<li>Specific Color Themes for each app </li>
 <li>Component views of each app use generic data types, property wrappers are used only in core views and viewmodels</li>
 <br/>
   
