@@ -130,9 +130,9 @@
 				34E2891F2C6BC36800EE9A7E /* BumbleChatPreviewCell.swift */,
 				34146EEC2C67BBC80049F7C3 /* BumbleFilterView.swift */,
 				34146EF02C67C7020049F7C3 /* BumbleHeartView.swift */,
-				34E2891D2C6BC09B00EE9A7E /* BumbleProfileImageCell.swift */,
 				34AA3D332C68D3C300D06718 /* InterestPillView.swift */,
 				34AA3D352C68D55700D06718 /* InterestPillGridView.swift */,
+				34E2891D2C6BC09B00EE9A7E /* BumbleProfileImageCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -197,6 +197,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		349B97F92C77A1ED00E90872 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				34D916F92C5D3CE900A8662C /* Product.swift */,
+				34D916FB2C5D3CFE00A8662C /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		34D916D52C5D36BB00A8662C = {
 			isa = PBXGroup;
 			children = (
@@ -243,8 +252,7 @@
 				34D916F52C5D382D00A8662C /* Constants.swift */,
 				34D916F72C5D3A1200A8662C /* DatabaseHelper.swift */,
 				34D916F32C5D37DD00A8662C /* ImageLoaderView.swift */,
-				34D916F92C5D3CE900A8662C /* Product.swift */,
-				34D916FB2C5D3CFE00A8662C /* User.swift */,
+				349B97F92C77A1ED00E90872 /* Models */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
