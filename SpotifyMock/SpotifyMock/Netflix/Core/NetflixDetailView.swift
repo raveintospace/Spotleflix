@@ -37,7 +37,7 @@ struct NetflixDetailView: View {
                 
                 ScrollView(.vertical) {
                     VStack(alignment: .leading, spacing: 16) {
-                        detailProductSection                        
+                        detailProductSection
                         buttonsHStack
                         moreLikeThisVStack
                     }

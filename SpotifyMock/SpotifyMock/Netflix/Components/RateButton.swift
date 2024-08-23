@@ -51,7 +51,7 @@ struct RateButton: View {
                 .foregroundStyle(.netflixLightGray)
         }
         .padding(8)
-        .background(.black.opacity(0.01))
+        .background(.black.opacity(0.001))
         .onTapGesture {
             showPopover.toggle()
         }
