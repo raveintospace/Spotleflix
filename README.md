@@ -1,26 +1,42 @@
 # Spotleflix
-Project to mock UI features of Spotify, Bumble & Netflix following Swiftful Thinking's tutorial (https://shorturl.at/QCbUa)
+Project to mock features of Spotify, Bumble, and Netflix; built following Swiftful Thinking's tutorial. [Tutorial Link](https://shorturl.at/QCbUa).
 
-## This app features 
-<ul>
-<li>Shared components: Asyncrhonous DatabaseHelper, Data models (User & Product) and a ImageLoaderView</li>
-<li>Package Dependencies: SDWebImageSwiftUI // SwiftfulRouting // SwiftfulUI</li>
-<li>Extensions: View (to update foreground & background color) and UINavigationController (to allow going back to previous viewControllers swiping left)</li>
-<li>Specific Color Themes for each app </li>
-<li>Component views of each app use generic data types, property wrappers are used only in core views and viewmodels</li>
-<br/>
-  
+## Features
+
+- **Shared Components:**
+  - Asynchronous `DatabaseHelper` for efficient database operations.
+  - Data models including `User` and `Product`.
+  - `ImageLoaderView` for asynchronous image loading.
+
+- **Package Dependencies:**
+  - `SDWebImageSwiftUI`
+  - `SwiftfulRouting`
+  - `SwiftfulUI`
+
+- **Extensions:**
+  - `View`: To update foreground & background colors dynamically.
+  - `UINavigationController`: Allows swipe-to-go-back functionality.
+
+- **Implementation Details:**
+  - Component views use generic data types, with property wrappers confined to core views and viewmodels.
+  - Buttons feature extra padding and minimal opacity (`0.001`) to enhance clickability.
+  - Specific color themes for each app (Spotify, Bumble, Netflix).
+
 ### Spotify
-<li>Category cell updates its colors when selected</li>
-<li>Playlist header cell uses modifier .asStretchyHeader(startingHeight: height) to increase image's height when pulling it</li>
-<br/>
-  
+- Category cell updates its colors when selected.
+- Playlist header cell uses `.asStretchyHeader(startingHeight: height)` to increase image height when pulled down.
+
 ### Bumble
-<li>Refactored to MVVM architecture, using Observable</li>
-<li>Filter view retains user's selection using @AppStorage</li>
-<li>Filter view uses modifier .matchedGeometryEffect and .animation to smoothly update the filter selected by the user</li>
-<li>User can swipe cards left or right, then an overlaySwipingIndicator appears from the side of the screen according to user's choice, while the following card of the deck can be seen</li>
-<br/>
-  
+- Refactored to MVVM architecture using `Observable`.
+- Filter view retains user selection with `@AppStorage`.
+- Filter view utilizes `.matchedGeometryEffect` and `.animation` for smooth transitions when updating the selected filter.
+- Users can swipe cards left or right, triggering an overlay swiping indicator from the side of the screen, with the next card in the deck partially visible.
+
 ### Netflix
+- Background gradient layer animates its opacity based on the scroll offset of the main view.
+- Header background opacity updates with an animation based on scroll offset.
+- Header filters disappear with an animation according to the scroll offset.
+- Filter bar view hides non-selected filters with an animation after user selection.
+- `MyListButton` in `DetailView` features a bouncy animation, updating its image, opacity, and rotation effect.
+
 
