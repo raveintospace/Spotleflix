@@ -25,6 +25,7 @@ Project to mock features of Spotify, Bumble, and Netflix; built following Swiftf
 ### Spotify
 - Category cell updates its colors when selected.
 - Playlist header cell uses `.asStretchyHeader(startingHeight: height)` to increase image height when pulled down.
+- Playlist header appear according to the scroll offset.
 
 ### Bumble
 - Refactored to MVVM architecture using `Observable`.
